@@ -173,6 +173,7 @@ const AdminDashboard = () => {
                                     <tr className="bg-slate-50 border-b border-slate-100">
                                         <th className="p-5 font-bold text-slate-500 uppercase tracking-wider text-xs">Client Details</th>
                                         <th className="p-5 font-bold text-slate-500 uppercase tracking-wider text-xs">Contact Info</th>
+                                        <th className="p-5 font-bold text-slate-500 uppercase tracking-wider text-xs">Location</th>
                                         <th className="p-5 font-bold text-slate-500 uppercase tracking-wider text-xs">Service & Message</th>
                                         <th className="p-5 font-bold text-slate-500 uppercase tracking-wider text-xs w-48">Date Submitted</th>
                                     </tr>
@@ -206,12 +207,22 @@ const AdminDashboard = () => {
                                                 </div>
                                             </td>
 
+                                            {/* Location */}
+                                            <td className="p-5 align-top">
+                                                <div className="mb-1 text-sm font-black text-slate-700">
+                                                    PIN: {inq.pincode || 'N/A'}
+                                                </div>
+                                                <p className="text-sm text-slate-500 line-clamp-2 w-full max-w-[200px]" title={inq.address}>
+                                                    {inq.address || 'No address provided'}
+                                                </p>
+                                            </td>
+
                                             {/* Service & Message */}
                                             <td className="p-5 align-top">
                                                 <div className="mb-2 inline-block px-3 py-1 bg-blue-50 text-blue-700 text-xs font-black rounded-md border border-blue-100/50">
                                                     {inq.service || 'General Inquiry'}
                                                 </div>
-                                                <p className="text-sm text-slate-500 line-clamp-2 mt-1 italic w-full max-w-md">
+                                                <p className="text-sm text-slate-500 line-clamp-2 mt-1 italic w-full max-w-[250px]" title={inq.message}>
                                                     "{inq.message || 'No message provided.'}"
                                                 </p>
                                             </td>
