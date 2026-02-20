@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Globe, PenTool, User, ShieldCheck, AlertCircle, Map } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Globe, PenTool, User, ShieldCheck, AlertCircle, Map, ArrowRight } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 
 const Contact = () => {

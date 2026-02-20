@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
-import { Shield, Lock, Search, Filter, RefreshCw, Mail, Phone, Clock, User, LogOut } from 'lucide-react';
+import { Shield, Lock, Search, Filter, RefreshCw, Mail, Phone, Clock, User, LogOut, Inbox } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const AdminDashboard = () => {
