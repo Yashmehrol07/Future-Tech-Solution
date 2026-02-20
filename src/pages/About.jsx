@@ -19,7 +19,7 @@ const About = () => {
                                 ENGINEERING <br /> TRUST.
                             </h1>
                             <p className="text-xl text-slate-500 font-bold leading-relaxed mb-10 max-w-lg">
-                                Since 2013, Future Tech & Solution has been at the forefront of security and IT innovation in Mumbai and beyond.
+                                Since 2013, Future Tech & solution has been at the forefront of security and IT innovation in Mumbai and beyond.
                             </p>
                             <div className="flex items-center space-x-4">
                                 <div className="p-4 bg-slate-900 text-white rounded-2xl shadow-xl">

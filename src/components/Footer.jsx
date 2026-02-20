@@ -11,8 +11,8 @@ const Footer = () => {
                     {/* Company Info */}
                     <div className="space-y-4">
                         <div className="flex items-center space-x-2">
-                            <img src="/logo.svg" alt="Future Tech & Solution" className="h-10 w-auto object-contain" />
-                            <span className="text-2xl font-black tracking-tight">Future Tech <span className="text-cyan-500">& Solution</span></span>
+                            <img src="/logo.svg" alt="Future Tech & solution" className="h-10 w-auto object-contain" />
+                            <span className="text-2xl font-black tracking-tight">Future Tech <span className="text-cyan-500">& solution</span></span>
                         </div>
                         <p className="text-gray-400 leading-relaxed">
                             Pioneering NEXT-GEN security, enterprise networking, and AI-driven IT solutions. The future of technology, delivered today.
@@ -79,7 +79,7 @@ const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
-                    <p>© {new Date().getFullYear()} Future Tech & Solution. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} Future Tech & solution. All rights reserved.</p>
                     <div className="flex space-x-6 mt-4 md:mt-0">
                         <a href="#" className="hover:text-blue-500 transition-colors"><Facebook size={20} /></a>
                         <a href="#" className="hover:text-blue-500 transition-colors"><Twitter size={20} /></a>

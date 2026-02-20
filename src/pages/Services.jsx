@@ -123,7 +123,7 @@ const Services = () => {
                     <div className="relative z-10">
                         <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter">READY TO UPGRADE <br /> YOUR SYSTEM?</h2>
                         <p className="text-slate-400 text-xl font-medium mb-12 max-w-xl mx-auto">
-                            Join over 500+ businesses who trust Future Tech & Solution for their critical IT infrastructure.
+                            Join over 500+ businesses who trust Future Tech & solution for their critical IT infrastructure.
                         </p>
                         <Link
                             to="/contact"

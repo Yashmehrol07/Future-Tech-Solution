@@ -37,7 +37,7 @@ const Navbar = () => {
                     {/* Logo */}
                     {/* Logo */}
                     <Link to="/" className="flex items-center">
-                        <img src="/logo.svg" alt="Future Tech & Solution" className="h-16 w-auto object-contain" />
+                        <img src="/logo.svg" alt="Future Tech & solution" className="h-16 w-auto object-contain" />
                     </Link>
 
                     {/* Desktop Navigation */}
