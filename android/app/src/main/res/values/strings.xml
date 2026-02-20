@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Future Tech solution</string>
+    <string name="title_activity_main">Future Tech solution</string>
+    <string name="package_name">com.futuretech.app</string>
+    <string name="custom_url_scheme">com.futuretech.app</string>
+</resources>
