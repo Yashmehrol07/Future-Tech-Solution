@@ -1,9 +1,36 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Laptop, Network, Camera, ChevronRight, Star, Check } from 'lucide-react';
+import { ArrowRight, Shield, Laptop, Network, Camera, ChevronRight, Star, Check, Quote } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
+    const testimonials = [
+        {
+            name: "Rajesh Kumar",
+            role: "Owner",
+            company: "Shree Krishna Jewellers",
+            text: "Future Tech upgraded our entire security grid. The 4K cameras they installed are incredible, and being able to monitor the shop remotely from my phone gives me total peace of mind.",
+            rating: 5,
+            image: "https://i.pravatar.cc/150?img=11"
+        },
+        {
+            name: "Amit Sharma",
+            role: "IT Director",
+            company: "Global Logistics UP",
+            text: "Their networking team is top-tier. We had constant downtime before they rewired our office and set up the new firewall. Not a single drop in connectivity since the installation.",
+            rating: 5,
+            image: "https://i.pravatar.cc/150?img=12"
+        },
+        {
+            name: "Priya Singh",
+            role: "Principal",
+            company: "Modern Public School",
+            text: "We hired Sangam and his team for a massive intercom and biometric attendance system. They handled the 50-room deployment smoothly and trained our staff perfectly. Highly recommended.",
+            rating: 5,
+            image: "https://i.pravatar.cc/150?img=5"
+        }
+    ];
+
     return (
         <div className="overflow-x-hidden">
             {/* Hero Section */}
@@ -192,6 +219,52 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Testimonials Section */}
+            <section className="py-32 bg-slate-50 relative overflow-hidden">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-24">
+                        <span className="text-blue-600 font-black uppercase tracking-[0.3em] text-sm mb-4 block">Client Success</span>
+                        <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter leading-none">TRUSTED BY <br />INDUSTRY LEADERS.</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {testimonials.map((testimonial, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: idx * 0.2 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                className="bg-white p-10 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col relative"
+                            >
+                                <Quote size={48} className="text-blue-100 absolute top-8 right-8 z-0" />
+
+                                <div className="flex text-yellow-500 mb-6 z-10">
+                                    {[...Array(testimonial.rating)].map((_, i) => (
+                                        <Star key={i} size={20} fill="currentColor" />
+                                    ))}
+                                </div>
+                                <p className="text-slate-600 text-lg leading-relaxed font-medium mb-10 flex-grow z-10">
+                                    "{testimonial.text}"
+                                </p>
+                                <div className="flex items-center mt-auto z-10">
+                                    <img
+                                        src={testimonial.image}
+                                        alt={testimonial.name}
+                                        className="w-14 h-14 rounded-full border-2 border-slate-100 shadow-sm mr-4"
+                                    />
+                                    <div>
+                                        <h4 className="text-slate-900 font-black">{testimonial.name}</h4>
+                                        <p className="text-slate-500 text-sm font-bold uppercase tracking-wider">{testimonial.role}, {testimonial.company}</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
         </div>
     );
 };
