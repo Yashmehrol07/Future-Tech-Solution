@@ -7,6 +7,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import AdminDashboard from './pages/Admin';
 import ServiceDetail from './pages/ServiceDetail';
+import ScrollToTop from './components/ScrollToTop';
 
 import NotFound from './pages/NotFound';
 import SupabaseTest from './components/SupabaseTest';
@@ -14,6 +15,7 @@ import SupabaseTest from './components/SupabaseTest';
 function App() {
     return (
         <Router>
+            <ScrollToTop />
             <Layout>
                 <Routes>
                     <Route path="/" element={<Home />} />
