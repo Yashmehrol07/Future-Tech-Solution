@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Services = () => {
     const services = [
         {
-            id: 'cctv',
+            id: 'cctv-installation',
             title: 'CCTV INSTALLATION',
             description: 'Intelligent surveillance systems with 4K resolution, AI-driven motion detection, and encrypted cloud storage for ultimate peace of mind.',
             icon: Camera,
@@ -14,7 +14,7 @@ const Services = () => {
             color: 'blue'
         },
         {
-            id: 'repair',
+            id: 'computer-repair',
             title: 'COMPUTER REPAIR',
             description: 'Precision engineering for your critical hardware. We specialize in high-end laptop repairs, workstation optimization, and data restoration.',
             icon: Laptop,
@@ -22,7 +22,7 @@ const Services = () => {
             color: 'indigo'
         },
         {
-            id: 'networking',
+            id: 'it-networking',
             title: 'IT NETWORKING',
             description: 'Scalable network architectures that grow with your business. High-speed fiber deployments and secure wireless grids.',
             icon: Network,
@@ -30,7 +30,7 @@ const Services = () => {
             color: 'cyan'
         },
         {
-            id: 'security',
+            id: 'security-systems',
             title: 'SECURITY SYSTEMS',
             description: 'Beyond visual monitoring. Integrated biometric controls, smart lock grids, and perimeter intrusion detection systems.',
             icon: Shield,
@@ -100,9 +100,9 @@ const Services = () => {
                                 <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-[3rem] blur-2xl opacity-10 group-hover:opacity-20 transition duration-700"></div>
                                 <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-slate-200">
                                     <img
-                                        src={`https://images.unsplash.com/photo-${service.id === 'cctv' ? '1557862921-37829c790f19' :
-                                            service.id === 'repair' ? '1597872252721-2464b3814860' :
-                                                service.id === 'networking' ? '1544197150-b99a580bbcbf' :
+                                        src={`https://images.unsplash.com/photo-${service.id === 'cctv-installation' ? '1557862921-37829c790f19' :
+                                            service.id === 'computer-repair' ? '1597872252721-2464b3814860' :
+                                                service.id === 'it-networking' ? '1544197150-b99a580bbcbf' :
                                                     '1558002038-1091a166111c'
                                             }?auto=format&fit=crop&w=1000&q=80`}
                                         alt={service.title}

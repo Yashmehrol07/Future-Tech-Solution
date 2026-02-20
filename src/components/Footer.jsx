@@ -42,13 +42,15 @@ const Footer = () => {
                         <h3 className="text-lg font-semibold mb-6 border-b border-blue-500 inline-block pb-2">Our Services</h3>
                         <ul className="space-y-3">
                             {[
-                                'CCTV Installation',
-                                'Computer Repair',
-                                'Networking',
-                                'Security Systems'
+                                { name: 'CCTV Installation', path: '/services/cctv-installation' },
+                                { name: 'Computer Repair', path: '/services/computer-repair' },
+                                { name: 'Networking', path: '/services/it-networking' },
+                                { name: 'Security Systems', path: '/services/security-systems' }
                             ].map((service) => (
-                                <li key={service} className="text-gray-400 hover:text-blue-400 transition-colors cursor-pointer">
-                                    {service}
+                                <li key={service.name}>
+                                    <Link to={service.path} className="text-gray-400 hover:text-blue-400 transition-colors cursor-pointer">
+                                        {service.name}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
