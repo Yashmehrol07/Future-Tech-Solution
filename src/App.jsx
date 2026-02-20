@@ -7,10 +7,12 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 
 import NotFound from './pages/NotFound';
+import SupabaseTest from './components/SupabaseTest';
 
 function App() {
     return (
         <Router>
+            <SupabaseTest />
             <Layout>
                 <Routes>
                     <Route path="/" element={<Home />} />

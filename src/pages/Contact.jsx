@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, MessageSquare, ArrowRight, User, Globe, PenTool } from 'lucide-react';
+import { supabase } from '../supabaseClient';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -11,10 +12,60 @@ const Contact = () => {
         message: ''
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert('Thank you for contacting Future Tech & Solution! We have received your request.');
-        setFormData({ name: '', email: '', phone: '', service: 'General Inquiry', message: '' });
+
+        try {
+            // 1. Save to Supabase
+            const { error } = await supabase
+                .from('inquiries')
+                .insert([
+                    {
+                        name: formData.name,
+                        email: formData.email,
+                        phone: formData.phone,
+                        service: formData.service,
+                        message: formData.message,
+                    }
+                ]);
+
+            if (error) {
+                console.error("Error saving inquiry:", error);
+                alert("There was an issue saving your request, but we will still try to connect you to WhatsApp.");
+            }
+
+            // 2. Format the message for WhatsApp
+            const whatsappMessage = `
+*New Service Request!* 🚀
+
+*Name:* ${formData.name}
+*Phone:* ${formData.phone}
+*Email:* ${formData.email}
+*Service Required:* ${formData.service}
+
+*Message:*
+${formData.message}
+            `.trim();
+
+            // 3. Encode the message for the URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+
+            // 4. Admin WhatsApp Number
+            const adminWhatsAppNumber = "918430092577";
+
+            // 5. Create the WhatsApp URL
+            const whatsappUrl = `https://wa.me/${adminWhatsAppNumber}?text=${encodedMessage}`;
+
+            // 6. Open WhatsApp in a new tab
+            window.open(whatsappUrl, '_blank');
+
+            alert('Request saved! Redirecting to WhatsApp...');
+            setFormData({ name: '', email: '', phone: '', service: 'General Inquiry', message: '' });
+
+        } catch (err) {
+            console.error("Unexpected error:", err);
+            alert("An unexpected error occurred. Please try again.");
+        }
     };
 
     const handleChange = (e) => {
