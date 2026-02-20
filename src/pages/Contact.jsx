@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Globe, PenTool, User, ShieldCheck, AlertCircle, Map, ArrowRight } from 'lucide-react';
 import { supabase } from '../supabaseClient';
+import { useSearchParams } from 'react-router-dom';
 
 const Contact = () => {
+    // URL Parameters
+    const [searchParams] = useSearchParams();
+    const defaultService = searchParams.get('service') || 'General Inquiry';
+
     // Two-step process state
     const [step, setStep] = useState(1);
     const [pincodeError, setPincodeError] = useState('');
@@ -13,7 +18,7 @@ const Contact = () => {
         name: '',
         email: '',
         phone: '',
-        service: 'General Inquiry',
+        service: defaultService,
         address: '',
         message: ''
     });
@@ -89,7 +94,7 @@ ${formData.message}
             window.open(whatsappUrl, '_blank');
 
             alert('Request saved! Redirecting to WhatsApp...');
-            setFormData({ pincode: '', name: '', email: '', phone: '', service: 'General Inquiry', address: '', message: '' });
+            setFormData({ pincode: '', name: '', email: '', phone: '', service: defaultService, address: '', message: '' });
             setStep(1);
 
         } catch (err) {

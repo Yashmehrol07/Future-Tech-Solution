@@ -88,10 +88,10 @@ const Services = () => {
                                     ))}
                                 </div>
                                 <Link
-                                    to="/contact"
+                                    to={`/services/${service.id}`}
                                     className="inline-flex items-center space-x-3 bg-blue-600 text-white px-10 py-5 rounded-2xl font-black shadow-2xl shadow-blue-500/20 hover:bg-blue-700 transition-all transform hover:-translate-y-1"
                                 >
-                                    <span>Schedule Installation</span>
+                                    <span>Learn More & Book</span>
                                     <ArrowRight size={20} />
                                 </Link>
                             </div>
