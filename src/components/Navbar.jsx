@@ -35,9 +35,18 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center">
                     {/* Logo */}
-                    {/* Logo */}
-                    <Link to="/" className="flex items-center">
-                        <img src="/logo.svg" alt="Future Tech & solution" className="h-16 w-auto object-contain" />
+                    <Link
+                        to="/"
+                        className="flex items-center relative group"
+                        onDoubleClick={(e) => {
+                            e.preventDefault();
+                            window.location.href = '/admin';
+                        }}
+                    >
+                        <img src="/logo.svg" alt="Future Tech & solution" className="h-16 w-auto object-contain cursor-pointer" />
+                        <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none delay-1000 hidden md:block whitespace-nowrap">
+                            Double click Admin
+                        </span>
                     </Link>
 
                     {/* Desktop Navigation */}
