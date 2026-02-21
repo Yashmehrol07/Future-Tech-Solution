@@ -26,7 +26,7 @@ const Footer = () => {
                             {['Home', 'Services', 'About Us', 'Contact', 'Admin Portal'].map((item) => (
                                 <li key={item}>
                                     <Link
-                                        to={item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`}
+                                        to={item === 'Home' ? '/' : item === 'Admin Portal' ? '/admin' : `/${item.toLowerCase().replace(' ', '-')}`}
                                         className="text-gray-400 hover:text-blue-400 transition-colors flex items-center group"
                                     >
                                         <span className="w-0 group-hover:w-2 h-0.5 bg-blue-500 mr-0 group-hover:mr-2 transition-all duration-300"></span>
@@ -81,15 +81,7 @@ const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
-                    <p
-                        onDoubleClick={() => window.location.href = '/admin'}
-                        className="cursor-default select-none group relative"
-                    >
-                        © {new Date().getFullYear()} Future Tech & solution. All rights reserved.
-                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none delay-1000 hidden md:block">
-                            Double click for Admin
-                        </span>
-                    </p>
+                    <p>© {new Date().getFullYear()} Future Tech & solution. All rights reserved.</p>
                     <div className="flex space-x-6 mt-4 md:mt-0">
                         <a href="#" className="hover:text-blue-500 transition-colors"><Facebook size={20} /></a>
                         <a href="#" className="hover:text-blue-500 transition-colors"><Twitter size={20} /></a>
