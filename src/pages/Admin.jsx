@@ -43,7 +43,11 @@ const AdminDashboard = () => {
 
         setAuthLoading(true);
         const { error } = await supabase.auth.signInWithOtp({
-            email: email.trim()
+            email: email.trim(),
+            options: {
+                // Force the magic link to return to the admin portal
+                emailRedirectTo: window.location.origin + '/admin'
+            }
         });
 
         setAuthLoading(false);
@@ -134,7 +138,7 @@ const AdminDashboard = () => {
                     </div>
                     <h2 className="text-3xl font-black text-slate-900 mb-2">Admin Portal</h2>
                     <p className="text-slate-500 font-medium mb-8">
-                        {step === 1 ? "Enter your email to receive a secure login code." : "Enter the 6-digit code sent to your email."}
+                        {step === 1 ? "Enter your email to receive a secure login link." : "Click the 'Magic Link' in your email, or enter the 6-digit code below."}
                     </p>
 
                     {step === 1 ? (
