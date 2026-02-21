@@ -138,7 +138,7 @@ const AdminDashboard = () => {
                     </div>
                     <h2 className="text-3xl font-black text-slate-900 mb-2">Admin Portal</h2>
                     <p className="text-slate-500 font-medium mb-8">
-                        {step === 1 ? "Enter your email to receive a secure login link." : "Click the 'Magic Link' in your email, or enter the 6-digit code below."}
+                        {step === 1 ? "Enter your email to receive a secure login link." : "Click the 'Magic Link' in your email, or enter the 8-digit code below."}
                     </p>
 
                     {step === 1 ? (
@@ -172,8 +172,8 @@ const AdminDashboard = () => {
                                     type="text"
                                     value={otp}
                                     onChange={(e) => setOtp(e.target.value)}
-                                    placeholder="000000"
-                                    maxLength={6}
+                                    placeholder="00000000"
+                                    maxLength={8}
                                     required
                                     className="w-full pl-12 pr-4 py-4 bg-slate-50 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none font-black tracking-widest text-center text-2xl text-slate-900 transition-all"
                                 />
