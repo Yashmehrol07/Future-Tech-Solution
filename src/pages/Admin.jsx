@@ -6,29 +6,85 @@ import { motion } from 'framer-motion';
 const AdminDashboard = () => {
     // Authentication State
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [pin, setPin] = useState('');
+    const [email, setEmail] = useState('');
+    const [otp, setOtp] = useState('');
+    const [step, setStep] = useState(1); // 1 = Email, 2 = OTP
     const [error, setError] = useState('');
+    const [authLoading, setAuthLoading] = useState(false);
 
     // Data State
     const [inquiries, setInquiries] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const ADMIN_PIN = '7777'; // Hardcoded PIN for simplicity
+    // Hardcoded allowed admin email
+    const AUTHORIZED_EMAIL = 'yashmehrol12@gmail.com';
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        if (pin === ADMIN_PIN) {
+    // Check existing session
+    useEffect(() => {
+        checkSession();
+    }, []);
+
+    const checkSession = async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session && session.user.email === AUTHORIZED_EMAIL) {
             setIsAuthenticated(true);
-            setError('');
             fetchInquiries();
-        } else {
-            setError('Invalid PIN. Access Denied.');
         }
     };
 
-    const handleLogout = () => {
+    const handleSendOtp = async (e) => {
+        e.preventDefault();
+        setError('');
+
+        if (email.trim().toLowerCase() !== AUTHORIZED_EMAIL) {
+            setError('Unauthorized email address.');
+            return;
+        }
+
+        setAuthLoading(true);
+        const { error } = await supabase.auth.signInWithOtp({
+            email: email.trim()
+        });
+
+        setAuthLoading(false);
+        if (error) {
+            setError(error.message);
+        } else {
+            setStep(2);
+            setError('');
+        }
+    };
+
+    const handleVerifyOtp = async (e) => {
+        e.preventDefault();
+        setError('');
+        setAuthLoading(true);
+
+        const { data, error } = await supabase.auth.verifyOtp({
+            email: email.trim(),
+            token: otp,
+            type: 'email'
+        });
+
+        setAuthLoading(false);
+        if (error) {
+            setError(error.message);
+        } else if (data.session && data.session.user.email === AUTHORIZED_EMAIL) {
+            setIsAuthenticated(true);
+            setStep(1);
+            fetchInquiries();
+        } else {
+            setError('Unauthorized access.');
+            await supabase.auth.signOut();
+        }
+    };
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut();
         setIsAuthenticated(false);
-        setPin('');
+        setStep(1);
+        setEmail('');
+        setOtp('');
         setInquiries([]);
     };
 
@@ -77,29 +133,66 @@ const AdminDashboard = () => {
                         <Shield size={40} />
                     </div>
                     <h2 className="text-3xl font-black text-slate-900 mb-2">Admin Portal</h2>
-                    <p className="text-slate-500 font-medium mb-8">Enter PIN to access service inquiries.</p>
+                    <p className="text-slate-500 font-medium mb-8">
+                        {step === 1 ? "Enter your email to receive a secure login code." : "Enter the 6-digit code sent to your email."}
+                    </p>
 
-                    <form onSubmit={handleLogin} className="space-y-6">
-                        <div className="relative">
-                            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                            <input
-                                type="password"
-                                value={pin}
-                                onChange={(e) => setPin(e.target.value)}
-                                placeholder="Enter Access PIN"
-                                maxLength={6}
-                                className="w-full pl-12 pr-4 py-4 bg-slate-50 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none font-bold text-center tracking-widest text-xl text-slate-900 transition-all"
-                            />
-                        </div>
-                        {error && <p className="text-red-500 font-bold text-sm">{error}</p>}
+                    {step === 1 ? (
+                        <form onSubmit={handleSendOtp} className="space-y-6">
+                            <div className="relative">
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Admin Email Address"
+                                    required
+                                    className="w-full pl-12 pr-4 py-4 bg-slate-50 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none font-bold text-center text-lg text-slate-900 transition-all"
+                                />
+                            </div>
+                            {error && <p className="text-red-500 font-bold text-sm">{error}</p>}
 
-                        <button
-                            type="submit"
-                            className="w-full bg-slate-900 text-white font-black py-4 rounded-xl hover:bg-blue-600 transition-colors shadow-lg active:scale-95"
-                        >
-                            Secure Login
-                        </button>
-                    </form>
+                            <button
+                                type="submit"
+                                disabled={authLoading}
+                                className="w-full bg-slate-900 text-white font-black py-4 rounded-xl hover:bg-blue-600 transition-colors shadow-lg active:scale-95 disabled:opacity-70 flex items-center justify-center space-x-2"
+                            >
+                                {authLoading ? <RefreshCw size={20} className="animate-spin" /> : <span>Send Login Code</span>}
+                            </button>
+                        </form>
+                    ) : (
+                        <form onSubmit={handleVerifyOtp} className="space-y-6">
+                            <div className="relative">
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                                <input
+                                    type="text"
+                                    value={otp}
+                                    onChange={(e) => setOtp(e.target.value)}
+                                    placeholder="000000"
+                                    maxLength={6}
+                                    required
+                                    className="w-full pl-12 pr-4 py-4 bg-slate-50 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none font-black tracking-widest text-center text-2xl text-slate-900 transition-all"
+                                />
+                            </div>
+                            {error && <p className="text-red-500 font-bold text-sm">{error}</p>}
+
+                            <button
+                                type="submit"
+                                disabled={authLoading}
+                                className="w-full bg-slate-900 text-white font-black py-4 rounded-xl hover:bg-blue-600 transition-colors shadow-lg active:scale-95 disabled:opacity-70 flex items-center justify-center space-x-2"
+                            >
+                                {authLoading ? <RefreshCw size={20} className="animate-spin" /> : <span>Verify & Login</span>}
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={() => setStep(1)}
+                                className="w-full flex justify-center text-slate-500 font-bold text-sm hover:text-blue-600 transition-colors mt-4"
+                            >
+                                ← Back to Email
+                            </button>
+                        </form>
+                    )}
                 </motion.div>
             </div>
         );
