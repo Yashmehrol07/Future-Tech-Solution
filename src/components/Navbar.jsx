@@ -38,15 +38,18 @@ const Navbar = () => {
                     <Link
                         to="/"
                         className="flex items-center relative group"
-                        onDoubleClick={(e) => {
-                            e.preventDefault();
-                            window.location.href = '/admin';
-                        }}
                     >
-                        <img src="/logo.svg" alt="Future Tech & solution" className="h-16 w-auto object-contain cursor-pointer" />
-                        <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none delay-1000 hidden md:block whitespace-nowrap">
-                            Double click Admin
-                        </span>
+                        <img src="/logo.svg" alt="Future Tech & solution" className="h-16 w-auto object-contain" />
+                        {/* Hidden Admin Button */}
+                        <div
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                window.location.href = '/admin';
+                            }}
+                            className="absolute top-0 right-0 w-1/3 h-1/2 opacity-0 cursor-default"
+                            title=""
+                        ></div>
                     </Link>
 
                     {/* Desktop Navigation */}
